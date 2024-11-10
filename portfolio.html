@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abu Bakar Siddiq's Portfolio</title>
+    <style>
+        /* General Reset */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        
+        /* Background and Container */
+        body { 
+            background: linear-gradient(135deg, #1c1c1c, #4a4a4a); 
+            color: #fff; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            min-height: 135vh; 
+            overflow-x: hidden; 
+        }
+        
+        .container { 
+            max-width: 900px; 
+            width: 90%; 
+            margin-top: 20px; 
+            padding: 20px; 
+            background-color: rgba(30, 30, 30, 0.8); 
+            border-radius: 10px; 
+            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.7); 
+            animation: slideIn 0.5s ease-in-out; 
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        /* Header */
+        header { text-align: center; margin-bottom: 30px; }
+        
+        header h1 { font-size: 2.5em; margin-bottom: 10px; color: #ffcc00; }
+        
+        header p { font-size: 1.1em; color: #f0f0f0; }
+
+        /* Navigation */
+        nav { display: flex; justify-content: center; flex-wrap: wrap; margin: 20px 0; }
+        
+        nav button { 
+            background-color: #ffcc00; 
+            border: none; 
+            padding: 10px 20px; 
+            margin: 5px; 
+            color: black; 
+            font-size: 1em; 
+            cursor: pointer; 
+            border-radius: 5px; 
+            transition: background-color 0.3s; 
+        }
+        
+        nav button:hover { background-color: #e6b800; }
+
+        /* Sections */
+        section { display: none; animation: fadeIn 0.5s ease-in-out; }
+        
+        .active { display: block; }
+        
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        /* Section Styles */
+        h2 { color: #ffcc00; margin-bottom: 10px; }
+        
+        .section-content { line-height: 1.6; color: #f0f0f0; }
+        
+        .skills, .projects { display: flex; flex-wrap: wrap; }
+        
+        .skills div, .projects div { 
+            background-color: #2c2c2c; 
+            margin: 5px; 
+            padding: 10px; 
+            border-radius: 5px; 
+            color: #f0f0f0; 
+            flex: 1 1 45%; 
+            transition: transform 0.3s; 
+        }
+
+        .skills div:hover, .projects div:hover {
+            transform: scale(1.05);
+        }
+
+        /* Contact Form */
+        form { display: flex; flex-direction: column; }
+        
+        form input, form textarea { 
+            margin: 10px 0; 
+            padding: 10px; 
+            border-radius: 5px; 
+            border: none; 
+            font-size: 1em; 
+            background-color: #444; 
+            color: #fff; 
+        }
+        
+        form button { 
+            background-color: #ffcc00; 
+            color: #000; 
+            padding: 10px; 
+            border: none; 
+            border-radius: 5px; 
+            cursor: pointer; 
+            transition: background-color 0.3s; 
+        }
+        
+        form button:hover { background-color: #e6b800; }
+
+        /* Footer */
+        footer { 
+            text-align: center; 
+            padding: 15px; 
+            margin-top: auto; 
+            color: #f0f0f0; 
+            font-size: 0.9em; 
+            background-color: rgba( 0, 0, 0, 0.6); 
+            width: 100%; 
+            position: fixed; 
+            bottom: 0; 
+        }
+
+        .social-links a { 
+            margin: 0 10px; 
+            color: #ffcc00; 
+            text-decoration: none; 
+            font-size: 1.2em; 
+            transition: color 0.3s; 
+        }
+        
+        .social-links a:hover { color: #e6b800; }
+
+        @media (max-width: 600px) {
+            header h1 { font-size: 2em; }
+            nav button { font-size: 0.9em; padding: 8px 16px; }
+            .skills div, .projects div { flex: 1 1 100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Welcome to Abu Bakar Siddiq's Portfolio</h1>
+        <p>Data Scientist | Machine Learning Engineer | Data Analyst</p>
+    </header>
+
+    <nav>
+        <button onclick="showSection('about')">About Me</button>
+        <button onclick="showSection('education')">Education</button>
+        <button onclick="showSection('skills')">Skills</button>
+        <button onclick="showSection('services')">Services</button>
+        <button onclick="showSection('projects')">Projects</button>
+        <button onclick="showSection('courses')">Courses/Certifications</button>
+        <button onclick="showSection('resume')">Resume</button>
+        <button onclick="showSection('experiences')">Experiences</button>
+        <button onclick="showSection('contact')">Contact</button>
+    </nav>
+
+    <div class="container">
+        <section id="about" class="active section-content">
+            <h2>About Me</h2>
+            <p>Hello! I'm Abu Bakar Siddiq, an aspiring Data Scientist with hands-on Experience in Machine Learning and Data Science. I'm currently pursuing my Bachelor's Degree in Data Sciences currently in 5th Semester, at University of Management & Technology, Lahore, Pakistan. I'm Passionate about Leveraging Data to Drive Impactful Business Decisions & Innovative Solutions. To learn more about me just Checkout my complete Portfolio, Thank You!</p>
+        </section>
+
+        <section id="education" class="section-content">
+    <h2>Education</h2>
+    <ul>
+        <li>
+            <strong>Bachelor's Degree in Data Sciences</strong> 
+            <ul>
+                <li>Institution: <a href="https://www.umt.edu.pk/" target="_blank" style="color: #ffcc00; text-decoration: none;">University of Management & Technology</a></li>
+                <li>Location: Lahore, Pakistan</li>
+                <li>Duration: 2022 - 2026</li>
+                <li>Major Courses: PF, OOP, DSA, Intro to Data Science, AI, DBMS, COAL, Data Mining, Machine Learning, Deep Learning & much more</li>
+            </ul>
+        </li>
+        <li>
+            <strong>Intermediate in Computer Science</strong> 
+            <ul>
+                <li>Institution: <a href="https://www.giccl.edu.pk/" target="_blank" style="color: #ffcc00; text-decoration: none;">Government Islamia College Civilines</a></li>
+                <li>Location: Lahore, Pakistan</li>
+                <li>Duration: 2020 - 2022</li>
+                <li>Major Courses: Computer Science, Physics & Mathematics</li>
+            </ul>
+        </li>
+        <li>
+            <strong>Matriculation</strong> 
+            <ul>
+                <li>Institution: <a href="https://adabistan.edu.pk/" target="_blank" style="color: #ffcc00; text-decoration: none;">Adabistan-e-Soophia School</a></li>
+                <li>Location: Lahore, Pakistan</li>
+                <li>Duration: 2015 - 2020</li>
+                <li>Major Courses: Physics, Chemistry, Maths & Computer Science</li>
+            </ul>
+        </li>
+    </ul>
+</section>
+
+        <section id="skills" class="section-content">
+            <h2>Skills</h2>
+            <div class="skills">
+                <div>Data Science</div>
+                <div>Deep Learning & Neural Networks (ANN, RNN)</div>
+                <div>Machine Learning</div>
+                <div>C, C++ & Python Programming</div>
+                <div>Natural Language Processing</div>
+                <div>Recommendation Systems</div>
+                <div>Predictive Modeling</div>
+                <div>Data Cleaning/Preprocessing/Analysis</div>
+                <div>Data Visualization</div>
+                <div>Tkinter</div>
+                <div>SQL & Databases</div>
+                <div>Statistical Analysis</div>
+				<div>Website Development</div>
+            </div>
+        </section>
+
+        <section id="services" class="section-content">
+            <h2>Services</h2>
+            <p>I offer a range of services in the field of Data Science & Machine Learning. Just email me at 
+               <a href="mailto:abubakar.siddiq1592@gmail.com" style="color: #ffcc00; text-decoration: none;">Abu Bakar Siddiq</a>
+               with your requirements. My services include:
+            </p>
+            <ul>
+                <li>Recommendation Systems</li>
+                <li>Predictive Modeling and Machine Learning Solutions</li>
+                <li>Data Analysis and Visualization</li>
+                <li>NLP Solutions for Text Data</li>
+                <li>Data Cleaning and Preparation</li>
+                <li>Database Development</li>
+				<li>Website Development</li>
+            </ul>
+        </section>
+
+        <section id="projects" class="section-content">
+            <h2>Projects</h2>
+            <p>Discover My Complete Projects here on <a href="https://github.com/abubakarsiddiqchohan1" target="_blank" style="color: #ffcc00; text-decoration: none;">GitHub</a>.</p>
+            <div class="projects">
+                <div>A/B Testing Analysis & Evaluation</div>
+                <div>Airline Reservation System (MS SQL Server & Python)</div>
+                <div>Breast Cancer Prediction</div>
+                <div>Car Price Prediction Model with User Recommendations (with user-friendly GUI)</div>
+                <div>Diabetes Prediction Model</div>
+                <div>Iris Flower Classification Model</div>
+                <div>House Price Prediction using Linear Regression</div>
+                <div>Mall Customer Segmentation</div>
+                <div>SVM Classification of Cats & Dogs</div>
+                <div>Sentiment Analysis on Movie Reviews</div>
+                <div>Sentiment Analysis & Emotion Detection on Twitter Data</div>
+                <div>Stock Price Prediction Model - (APPLE's Company DataSet)</div>
+                <div>Titanic Classification Model</div>
+                <div>Unemployment Analysis Model</div>
+            </div>
+        </section>
+
+        <section id="courses" class="section-content">
+            <h2>Courses/Certifications</h2>
+            <p>Checkout My Certifications and Courses here on <a href="https://www.linkedin.com/in/abubakarsiddiqchohan" target="_blank" style="color: #ffcc00; text-decoration: none;">LinkedIn</a>.</p>
+            <ul>
+                <li><a href="https://olympus.mygreatlearning.com/courses/13687/certificate" target="_blank" style="color: #ffcc00; text-decoration: none;">Basics of Exploratory Data Analysis - Great Learning</a></li>
+                <li><a href="https://learn.microsoft.com/api/achievements/share/en-gb/ABUBAKARSIDDIQ-7561/UXSD2F43?sharingId=C2FC789E1BF320E9" target="_blank" style="color: #ffcc00; text-decoration: none;">Fundamentals AI Concept - Microsoft</a></li>
+                <li><a href="https://learn.microsoft.com/api/achievements/share/en-gb/ABUBAKARSIDDIQ-7561/8A64VH4W?sharingId=C2FC789E1BF320E9" target="_blank" style="color: #ffcc00; text-decoration: none;">Fundamentals of Machine Learning - Microsoft</a></li>
+                <li><a href="https://olympus.mygreatlearning.com/courses/59414/certificate" target="_blank" style="color: #ffcc00; text-decoration: none;">Google Data Analytics - Great Learning</a></li>
+                <li><a href="https://learn.microsoft.com/api/achievements/share/en-gb/ABUBAKARSIDDIQ-7561/KLVY43FB?sharingId=C2FC789E1BF320E9" target="_blank" style="color: #ffcc00; text-decoration: none;">Introduction to Programming - Microsoft</a></li>
+                <li><a href="https://learn.microsoft.com/api/achievements/share/en-gb/ABUBAKARSIDDIQ-7561/YM89SF9R?sharingId=C2FC789E1BF320E9" target="_blank" style="color: #ffcc00; text-decoration: none;">Python for Beginners - Microsoft</a></li>
+                <li><a href="https://olympus.mygreatlearning.com/courses/47916/certificate" target="_blank" style="color: #ffcc00; text-decoration: none;">Python for Data Science</a></li>    
+            </ul>
+        </section>
+
+        <section id="resume" class="section-content">
+            <h2>Resume</h2>
+            <p>Download my latest resume for a complete overview of my experience and skills.</p>
+            <a href="https://drive.google.com/uc?export=download&id=1zJNGvk0uAtMJJymdOG2YSwBDem_htuCM" style="color: #ffcc00; text-decoration: none; font-weight: bold;">
+                Download Resume
+            </a>
+        </section>
+
+        <section id="experiences" class="section-content">
+            <h2>Experiences</h2>
+            <p>Checkout my Complete Experiences here on <a href="https://www.linkedin.com/in/abubakarsiddiqchohan" target="_blank" style="color: #ffcc00; text-decoration: none;">LinkedIn</a>.</p>
+            <ul>
+                <li><strong>Data Science Intern at CodeAlpha</strong>  
+                    <br> <em>Aug 2024 - Aug 2024 · 1 month · Remote</em>  
+                    <br> <strong>Skills:</strong> Machine Learning, Deep Learning, Data Pre-Processing, Data Visualization & much more
+                </li>
+                <li><strong>Data Science Intern at Oasis InfoByte</strong>  
+                    <br> <em>Aug 2024 - Aug 2024 · 1 month · Remote</em>  
+                    <br> <strong>Skills:</strong> Machine Learning, Data Pre-Processing, Data Visualization & much more
+                </li>
+                <li><strong>Machine Learning Intern at CognoRise InfoTech</strong>  
+                    <br> <em>10 Aug 2024 - 10 Sep 2024 · 1 month · Remote</em>  
+                    <br> <strong>Skills:</strong> Machine Learning, Data Visualization, Data Pre-Processing & much more
+                </li>
+                <li><strong>Machine Learning Intern at Prodigy InfoTech</strong>  
+                    <br> <em>Sep 2024 - Sep 2024 · 1 month · Remote</em>  
+                    <br> <strong>Skills:</strong> Machine Learning, Data Visualization, Data Pre-Processing & much more
+                </li>
+            </ul>
+        </section>
+
+        <section id="contact" class="section-content">
+            <h2>Contact Me</h2>
+            <form action="https://formspree.io/f/mwkajgwl" method="POST">
+                <input type="text" name="name" placeholder="Your Name" required>
+                <input type="email" name="email" placeholder="Your Email" required>
+                <textarea name="message" placeholder="Your Message" rows="4" required></textarea>
+                <button type="submit">Send Message</button>
+            </form>
+            <div class="social-links">
+                <a href="https://www.linkedin.com/in/abubakarsiddiqchohan" target="_blank">LinkedIn</a>
+                <a href="https://www.github.com/abubakarsiddiqchohan1" target="_blank">GitHub</a>
+                <a href="https://www.facebook.com/abubakarsiddiqchohan" target="_blank">Facebook</a>
+                <a href="https://www.instagram.com/abubakarsiddiq__?igsh=MTI0ZGt2MW9zZXJmdA==" target="_blank">Instagram</a>
+                <a href="https://www.kaggle.com/abubakarsiddiqchohan" target="_blank">Kaggle</a>
+                <a href="mailto:abubakar.siddiq1592@gmail.com" target="_blank">Email</a>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Abu Bakar Siddiq. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function showSection(id) {
+            const sections = document.querySelectorAll('section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(id).classList.add('active');
+        }
+    </script>
+
+</body>
+</html>
