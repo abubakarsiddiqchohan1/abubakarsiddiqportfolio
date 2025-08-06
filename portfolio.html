@@ -27,10 +27,10 @@
             --shadow-medium: rgba(0, 0, 0, 0.3);
             --shadow-heavy: rgba(0, 0, 0, 0.7);
             --border-radius: 12px;
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition: all 0.15s ease-out;
         }
 
-        /* Global Reset and Base Styles */
+        /* Performance optimizations */
         * {
             margin: 0;
             padding: 0;
@@ -50,9 +50,13 @@
             min-height: 100vh;
             position: relative;
             overflow-x: hidden;
+            /* Hardware acceleration */
+            transform: translateZ(0);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
-        /* Animated Background */
+        /* Optimized Animated Background */
         .bg-animation {
             position: fixed;
             top: 0;
@@ -60,7 +64,8 @@
             width: 100%;
             height: 100%;
             z-index: -1;
-            opacity: 0.1;
+            opacity: 0.08;
+            will-change: transform;
         }
 
         .bg-animation::before {
@@ -73,16 +78,17 @@
             background: 
                 radial-gradient(circle at 25% 25%, var(--primary-color) 0%, transparent 50%),
                 radial-gradient(circle at 75% 75%, var(--secondary-color) 0%, transparent 50%);
-            animation: float 20s ease-in-out infinite;
+            animation: float 15s ease-in-out infinite;
+            transform: translateZ(0);
         }
 
         @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            33% { transform: translateY(-20px) rotate(120deg); }
-            66% { transform: translateY(-40px) rotate(240deg); }
+            0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
+            33% { transform: translate3d(-10px, -20px, 0) rotate(120deg); }
+            66% { transform: translate3d(-20px, -30px, 0) rotate(240deg); }
         }
 
-        /* Loading Screen */
+        /* Faster Loading Screen */
         .loading-screen {
             position: fixed;
             top: 0;
@@ -94,7 +100,7 @@
             justify-content: center;
             align-items: center;
             z-index: 9999;
-            transition: opacity 0.5s ease, visibility 0.5s ease;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
         }
 
         .loading-screen.hidden {
@@ -103,12 +109,12 @@
         }
 
         .loader {
-            width: 50px;
-            height: 50px;
-            border: 3px solid var(--text-muted);
-            border-top: 3px solid var(--primary-color);
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--text-muted);
+            border-top: 2px solid var(--primary-color);
             border-radius: 50%;
-            animation: spin 1s linear infinite;
+            animation: spin 0.8s linear infinite;
         }
 
         @keyframes spin {
@@ -116,10 +122,10 @@
             100% { transform: rotate(360deg); }
         }
 
-        /* Header Styles */
+        /* Optimized Header */
         .header {
             background: rgba(26, 26, 46, 0.95);
-            backdrop-filter: blur(20px);
+            backdrop-filter: blur(10px);
             position: fixed;
             top: 0;
             left: 0;
@@ -128,11 +134,12 @@
             padding: 1rem 0;
             transition: var(--transition);
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transform: translateZ(0);
         }
 
         .header.scrolled {
             background: rgba(10, 10, 15, 0.98);
-            box-shadow: 0 4px 32px var(--shadow-medium);
+            box-shadow: 0 2px 20px var(--shadow-medium);
         }
 
         .nav-container {
@@ -150,17 +157,18 @@
             color: var(--primary-color);
             text-decoration: none;
             transition: var(--transition);
+            transform: translateZ(0);
         }
 
         .logo:hover {
-            transform: scale(1.05);
-            text-shadow: 0 0 20px var(--primary-color);
+            transform: scale(1.02) translateZ(0);
+            text-shadow: 0 0 15px var(--primary-color);
         }
 
         .nav-menu {
             display: flex;
             list-style: none;
-            gap: 2rem;
+            gap: 1.5rem;
         }
 
         .nav-item {
@@ -177,6 +185,8 @@
             cursor: pointer;
             position: relative;
             overflow: hidden;
+            display: block;
+            transform: translateZ(0);
         }
 
         .nav-link::before {
@@ -187,7 +197,7 @@
             width: 100%;
             height: 100%;
             background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.2), transparent);
-            transition: left 0.5s ease;
+            transition: left 0.3s ease;
         }
 
         .nav-link:hover::before {
@@ -197,12 +207,33 @@
         .nav-link:hover {
             color: var(--primary-color);
             background: rgba(0, 212, 255, 0.1);
-            transform: translateY(-2px);
+            transform: translateY(-1px) translateZ(0);
         }
 
         .nav-link.active {
             color: var(--primary-color);
             background: rgba(0, 212, 255, 0.15);
+        }
+
+        /* CV Download Button */
+        .cv-download {
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+            color: var(--text-primary);
+            padding: 0.6rem 1.2rem;
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 2px 10px rgba(255, 107, 53, 0.3);
+        }
+
+        .cv-download:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.4);
         }
 
         /* Mobile Menu */
@@ -234,7 +265,7 @@
         .hero-content {
             max-width: 800px;
             padding: 2rem;
-            animation: fadeInUp 1s ease-out 0.5s both;
+            animation: fadeInUp 0.8s ease-out 0.3s both;
         }
 
         .hero-subtitle {
@@ -285,6 +316,7 @@
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
+            transform: translateZ(0);
         }
 
         .btn-primary {
@@ -294,8 +326,8 @@
         }
 
         .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(0, 212, 255, 0.4);
+            transform: translateY(-2px) translateZ(0);
+            box-shadow: 0 6px 20px rgba(0, 212, 255, 0.4);
         }
 
         .btn-secondary {
@@ -307,10 +339,10 @@
         .btn-secondary:hover {
             background: var(--primary-color);
             color: var(--bg-primary);
-            transform: translateY(-3px);
+            transform: translateY(-2px) translateZ(0);
         }
 
-        /* Main Content */
+        /* Main Content - Optimized */
         .main {
             padding-top: 2rem;
         }
@@ -322,14 +354,22 @@
         }
 
         .section {
-            display: none;
+            opacity: 0;
+            visibility: hidden;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
             min-height: calc(100vh - 80px);
             padding: 4rem 0;
-            animation: fadeIn 0.6s ease-out;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            transform: translateZ(0);
         }
 
         .section.active {
-            display: block;
+            opacity: 1;
+            visibility: visible;
+            position: relative;
         }
 
         .section-header {
@@ -365,21 +405,22 @@
             margin: 0 auto;
         }
 
-        /* Cards */
+        /* Optimized Cards */
         .card {
             background: rgba(26, 26, 46, 0.6);
-            backdrop-filter: blur(20px);
+            backdrop-filter: blur(10px);
             border-radius: var(--border-radius);
             padding: 2rem;
-            box-shadow: 0 8px 32px var(--shadow-medium);
+            box-shadow: 0 4px 20px var(--shadow-medium);
             border: 1px solid rgba(255, 255, 255, 0.1);
             transition: var(--transition);
             height: 100%;
+            transform: translateZ(0);
         }
 
         .card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px var(--shadow-heavy);
+            transform: translateY(-5px) translateZ(0);
+            box-shadow: 0 10px 30px var(--shadow-heavy);
             border-color: rgba(0, 212, 255, 0.3);
         }
 
@@ -442,12 +483,13 @@
             font-weight: 500;
             transition: var(--transition);
             cursor: pointer;
+            transform: translateZ(0);
         }
 
         .skill-item:hover {
             background: var(--primary-color);
             color: var(--bg-primary);
-            transform: scale(1.05);
+            transform: scale(1.02) translateZ(0);
         }
 
         /* Projects Section */
@@ -477,7 +519,7 @@
 
         .project-link:hover {
             color: var(--primary-color);
-            transform: scale(1.2);
+            transform: scale(1.1);
         }
 
         .tech-stack {
@@ -522,7 +564,7 @@
 
         .contact-item:hover {
             background: rgba(0, 212, 255, 0.1);
-            transform: translateX(10px);
+            transform: translateX(5px);
         }
 
         .contact-icon {
@@ -607,12 +649,13 @@
             border-radius: 50%;
             transition: var(--transition);
             font-size: 1.2rem;
+            transform: translateZ(0);
         }
 
         .social-link:hover {
             background: var(--primary-color);
             color: var(--bg-primary);
-            transform: translateY(-5px) scale(1.1);
+            transform: translateY(-3px) scale(1.05) translateZ(0);
         }
 
         /* Footer */
@@ -629,7 +672,7 @@
             margin-bottom: 1rem;
         }
 
-        /* Animations */
+        /* Optimized Animations */
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
@@ -638,22 +681,11 @@
         @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: translateY(30px);
+                transform: translateY(20px);
             }
             to {
                 opacity: 1;
                 transform: translateY(0);
-            }
-        }
-
-        @keyframes slideInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
             }
         }
 
@@ -677,6 +709,10 @@
 
             .mobile-menu-toggle {
                 display: flex;
+            }
+
+            .cv-download {
+                display: none;
             }
 
             .hero-title {
@@ -738,6 +774,7 @@
             visibility: hidden;
             transition: var(--transition);
             z-index: 1000;
+            transform: translateZ(0);
         }
 
         .scroll-top.visible {
@@ -747,7 +784,7 @@
 
         .scroll-top:hover {
             background: var(--secondary-color);
-            transform: translateY(-3px);
+            transform: translateY(-2px) translateZ(0);
         }
     </style>
 </head>
@@ -784,6 +821,12 @@
                     <span class="nav-link" data-section="contact">Contact</span>
                 </div>
             </nav>
+            <a href="https://drive.google.com/file/d/1XCwsjs1ULp0aHlC1-aS-9jDJR0vEIvsH/view" 
+               target="_blank" 
+               rel="noopener noreferrer" 
+               class="cv-download">
+                📄 Download CV
+            </a>
             <div class="mobile-menu-toggle" id="mobileToggle">
                 <div class="hamburger"></div>
                 <div class="hamburger"></div>
@@ -804,6 +847,12 @@
             <div class="hero-cta">
                 <span class="btn btn-primary nav-link" data-section="projects">View My Work</span>
                 <span class="btn btn-secondary nav-link" data-section="contact">Get In Touch</span>
+                <a href="https://drive.google.com/file/d/1XCwsjs1ULp0aHlC1-aS-9jDJR0vEIvsH/view" 
+                   target="_blank" 
+                   rel="noopener noreferrer" 
+                   class="btn btn-secondary">
+                    📄 Download CV
+                </a>
             </div>
         </div>
     </section>
@@ -873,582 +922,3 @@
                         <div class="skill-item">Tkinter</div>
                     </div>
                 </div>
-                <div class="skills-category">
-                    <h3 class="skills-category-title">
-                        <span>📊</span> Data & Visualization
-                    </h3>
-                    <div class="grid grid-4">
-                        <div class="skill-item">Data Analysis</div>
-                        <div class="skill-item">Data Visualization</div>
-                        <div class="skill-item">Data Cleaning</div>
-                        <div class="skill-item">Data Preprocessing</div>
-                        <div class="skill-item">Database Design</div>
-                        <div class="skill-item">A/B Testing</div>
-                        <div class="skill-item">Exploratory Data Analysis</div>
-                        <div class="skill-item">Web Development</div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Projects Section -->
-            <section class="section" id="projects">
-                <div class="section-header">
-                    <h2 class="section-title">Featured Projects</h2>
-                    <p class="section-subtitle">Explore my latest work in data science and machine learning</p>
-                </div>
-                <div class="grid grid-2">
-                    <div class="card project-card">
-                        <div class="project-header">
-                            <h3 class="card-title">Car Price Prediction System</h3>
-                            <div class="project-links">
-                                <a href="https://github.com/abubakarsiddiqchohan1" class="project-link" title="GitHub">🔗</a>
-                            </div>
-                        </div>
-                        <p class="card-description">
-                            NLP-powered system for analyzing sentiment and emotions in Twitter data and movie reviews with high accuracy classification.
-                        </p>
-                        <div class="tech-stack">
-                            <span class="tech-tag">Python</span>
-                            <span class="tech-tag">NLP</span>
-                            <span class="tech-tag">Twitter API</span>
-                            <span class="tech-tag">NLTK</span>
-                        </div>
-                    </div>
-                    <div class="card project-card">
-                        <div class="project-header">
-                            <h3 class="card-title">Stock Price Prediction</h3>
-                            <div class="project-links">
-                                <a href="https://github.com/abubakarsiddiqchohan1" class="project-link" title="GitHub">🔗</a>
-                            </div>
-                        </div>
-                        <p class="card-description">
-                            Time series analysis model predicting Apple stock prices using LSTM networks and technical indicators.
-                        </p>
-                        <div class="tech-stack">
-                            <span class="tech-tag">Python</span>
-                            <span class="tech-tag">LSTM</span>
-                            <span class="tech-tag">TensorFlow</span>
-                            <span class="tech-tag">Financial Data</span>
-                        </div>
-                    </div>
-                    <div class="card project-card">
-                        <div class="project-header">
-                            <h3 class="card-title">Healthcare ML Suite</h3>
-                            <div class="project-links">
-                                <a href="https://github.com/abubakarsiddiqchohan1" class="project-link" title="GitHub">🔗</a>
-                            </div>
-                        </div>
-                        <p class="card-description">
-                            Comprehensive healthcare prediction models including breast cancer detection, diabetes prediction, and medical data analysis.
-                        </p>
-                        <div class="tech-stack">
-                            <span class="tech-tag">Python</span>
-                            <span class="tech-tag">Healthcare AI</span>
-                            <span class="tech-tag">Classification</span>
-                            <span class="tech-tag">Medical Data</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="text-center mt-2">
-                    <a href="https://github.com/abubakarsiddiqchohan1" class="btn btn-secondary" target="_blank">
-                        View All Projects on GitHub
-                    </a>
-                </div>
-            </section>
-
-            <!-- Experience Section -->
-            <section class="section" id="experience">
-                <div class="section-header">
-                    <h2 class="section-title">Professional Experience</h2>
-                    <p class="section-subtitle">Building expertise through hands-on industry experience</p>
-                </div>
-                <div class="grid grid-2">
-                    <div class="card">
-                        <div class="card-icon">🚀</div>
-                        <h3 class="card-title">Data Science Intern</h3>
-                        <p class="card-description">
-                            <strong>CodeAlpha</strong> • Aug 2024<br>
-                            Worked on machine learning projects, data preprocessing, and visualization. Developed deep learning models and implemented neural networks for real-world applications.
-                        </p>
-                        <div class="tech-stack">
-                            <span class="tech-tag">Machine Learning</span>
-                            <span class="tech-tag">Deep Learning</span>
-                            <span class="tech-tag">Data Visualization</span>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-icon">🔬</div>
-                        <h3 class="card-title">ML Research Intern</h3>
-                        <p class="card-description">
-                            <strong>Prodigy InfoTech</strong> • Sep 2024<br>
-                            Specialized in machine learning algorithm development, data preprocessing pipelines, and statistical analysis for business intelligence.
-                        </p>
-                        <div class="tech-stack">
-                            <span class="tech-tag">Algorithm Development</span>
-                            <span class="tech-tag">Statistical Analysis</span>
-                            <span class="tech-tag">Business Intelligence</span>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-icon">🧠</div>
-                        <h3 class="card-title">ML Engineering Intern</h3>
-                        <p class="card-description">
-                            <strong>CognoRise InfoTech</strong> • Aug-Sep 2024<br>
-                            Focused on end-to-end ML pipeline development, model optimization, and deployment strategies for production environments.
-                        </p>
-                        <div class="tech-stack">
-                            <span class="tech-tag">ML Pipelines</span>
-                            <span class="tech-tag">Model Optimization</span>
-                            <span class="tech-tag">Production Deployment</span>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-icon">📊</div>
-                        <h3 class="card-title">Data Analytics Intern</h3>
-                        <p class="card-description">
-                            <strong>Oasis InfoByte</strong> • Aug 2024<br>
-                            Gained hands-on experience in data analysis, visualization techniques, and machine learning model development for business insights.
-                        </p>
-                        <div class="tech-stack">
-                            <span class="tech-tag">Data Analytics</span>
-                            <span class="tech-tag">Business Insights</span>
-                            <span class="tech-tag">Visualization</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="text-center mt-2">
-                    <h3 class="section-subtitle" style="margin-bottom: 2rem;">Certifications & Achievements</h3>
-                    <div class="grid grid-3">
-                        <div class="card">
-                            <h4 class="card-title">Microsoft AI Fundamentals</h4>
-                            <p class="card-description">Comprehensive understanding of AI concepts, machine learning fundamentals, and responsible AI practices.</p>
-                        </div>
-                        <div class="card">
-                            <h4 class="card-title">Google Data Analytics</h4>
-                            <p class="card-description">Professional certificate in data analytics, visualization, and business intelligence using modern tools.</p>
-                        </div>
-                        <div class="card">
-                            <h4 class="card-title">Python for Data Science</h4>
-                            <p class="card-description">Advanced Python programming for data science, including pandas, numpy, and machine learning libraries.</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Contact Section -->
-            <section class="section" id="contact">
-                <div class="section-header">
-                    <h2 class="section-title">Let's Connect</h2>
-                    <p class="section-subtitle">Ready to collaborate on your next data science project?</p>
-                </div>
-                <div class="contact-content">
-                    <div class="contact-info">
-                        <div class="contact-item">
-                            <div class="contact-icon">📧</div>
-                            <div>
-                                <h4>Email</h4>
-                                <p>abubakar.siddiq1592@gmail.com</p>
-                            </div>
-                        </div>
-                        <div class="contact-item">
-                            <div class="contact-icon">📍</div>
-                            <div>
-                                <h4>Location</h4>
-                                <p>Lahore, Pakistan</p>
-                            </div>
-                        </div>
-                        <div class="contact-item">
-                            <div class="contact-icon">💼</div>
-                            <div>
-                                <h4>Services</h4>
-                                <p>Data Science • Machine Learning • Consulting</p>
-                            </div>
-                        </div>
-                        <div class="social-links">
-                            <a href="https://www.linkedin.com/in/abubakarsiddiqchohan" class="social-link" target="_blank" title="LinkedIn">💼</a>
-                            <a href="https://github.com/abubakarsiddiqchohan1" class="social-link" target="_blank" title="GitHub">🔗</a>
-                            <a href="https://www.kaggle.com/abubakarsiddiqchohan" class="social-link" target="_blank" title="Kaggle">📊</a>
-                            <a href="mailto:abubakar.siddiq1592@gmail.com" class="social-link" title="Email">📧</a>
-                        </div>
-                    </div>
-                    <div class="contact-form-container">
-                        <form class="contact-form" id="contactForm">
-                            <div class="form-group">
-                                <label for="name" class="form-label">Full Name *</label>
-                                <input type="text" id="name" name="name" class="form-input" placeholder="Enter your full name" required>
-                                <div class="form-error" id="nameError">Please enter your name</div>
-                            </div>
-                            <div class="form-group">
-                                <label for="email" class="form-label">Email Address *</label>
-                                <input type="email" id="email" name="email" class="form-input" placeholder="your.email@example.com" required>
-                                <div class="form-error" id="emailError">Please enter a valid email</div>
-                            </div>
-                            <div class="form-group">
-                                <label for="subject" class="form-label">Subject *</label>
-                                <input type="text" id="subject" name="subject" class="form-input" placeholder="Project inquiry, collaboration, etc." required>
-                                <div class="form-error" id="subjectError">Please enter a subject</div>
-                            </div>
-                            <div class="form-group">
-                                <label for="message" class="form-label">Message *</label>
-                                <textarea id="message" name="message" class="form-input form-textarea" placeholder="Tell me about your project or how I can help..." required></textarea>
-                                <div class="form-error" id="messageError">Please enter your message</div>
-                            </div>
-                            <button type="submit" class="btn btn-primary" id="submitBtn">
-                                <span id="btnText">Send Message</span>
-                                <span id="btnLoader" class="hidden">⏳ Sending...</span>
-                            </button>
-                            <div class="form-success" id="successMessage">
-                                ✅ Thank you! Your message has been sent. I'll get back to you within 24 hours.
-                            </div>
-                            <div class="form-error" id="formError" style="display: none; margin-top: 1rem;">
-                                ❌ There was an error sending your message. Please email me directly at abubakar.siddiq1592@gmail.com
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </section>
-        </div>
-    </main>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <p class="footer-text">&copy; 2024 Abu Bakar Siddiq. All rights reserved.</p>
-            <p class="footer-text">Crafted with passion for data science and innovation</p>
-        </div>
-    </footer>
-
-    <!-- Scroll to Top Button -->
-    <button class="scroll-top" id="scrollTop">↑</button>
-
-    <script>
-        // Security and Error Handling
-        'use strict';
-        
-        // Secure event handling
-        function addSecureEventListener(element, event, handler) {
-            if (element && typeof handler === 'function') {
-                try {
-                    element.addEventListener(event, handler);
-                } catch (error) {
-                    console.error('Event listener error:', error);
-                }
-            }
-        }
-
-        // Input sanitization
-        function sanitizeInput(input) {
-            if (typeof input !== 'string') return '';
-            return input.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
-                       .replace(/[<>]/g, '')
-                       .trim();
-        }
-
-        // Email validation
-        function validateEmail(email) {
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            return emailRegex.test(email);
-        }
-
-        // Loading screen
-        window.addEventListener('load', function() {
-            setTimeout(() => {
-                const loadingScreen = document.getElementById('loadingScreen');
-                if (loadingScreen) {
-                    loadingScreen.classList.add('hidden');
-                }
-            }, 1000);
-        });
-
-        // Header scroll effect
-        let lastScrollTop = 0;
-        addSecureEventListener(window, 'scroll', function() {
-            const header = document.getElementById('header');
-            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            
-            if (header) {
-                if (scrollTop > 100) {
-                    header.classList.add('scrolled');
-                } else {
-                    header.classList.remove('scrolled');
-                }
-            }
-
-            // Scroll to top button
-            const scrollTopBtn = document.getElementById('scrollTop');
-            if (scrollTopBtn) {
-                if (scrollTop > 300) {
-                    scrollTopBtn.classList.add('visible');
-                } else {
-                    scrollTopBtn.classList.remove('visible');
-                }
-            }
-
-            lastScrollTop = scrollTop;
-        });
-
-        // Navigation functionality
-        const sections = ['home', 'about', 'skills', 'projects', 'experience', 'contact'];
-        let currentSection = 'home';
-
-        function showSection(sectionId) {
-            // Validate section ID
-            if (!sections.includes(sectionId)) {
-                console.warn('Invalid section ID:', sectionId);
-                return;
-            }
-
-            try {
-                // Hide all sections
-                sections.forEach(id => {
-                    const section = document.getElementById(id);
-                    if (section) {
-                        section.classList.remove('active');
-                    }
-                });
-
-                // Show target section
-                if (sectionId === 'home') {
-                    const heroSection = document.getElementById('home');
-                    if (heroSection) {
-                        heroSection.scrollIntoView({ behavior: 'smooth' });
-                    }
-                } else {
-                    const targetSection = document.getElementById(sectionId);
-                    if (targetSection) {
-                        targetSection.classList.add('active');
-                        targetSection.scrollIntoView({ behavior: 'smooth' });
-                    }
-                }
-
-                // Update active nav link
-                document.querySelectorAll('.nav-link').forEach(link => {
-                    link.classList.remove('active');
-                    if (link.dataset.section === sectionId) {
-                        link.classList.add('active');
-                    }
-                });
-
-                currentSection = sectionId;
-                
-                // Close mobile menu
-                const navMenu = document.getElementById('navMenu');
-                if (navMenu) {
-                    navMenu.classList.remove('active');
-                }
-            } catch (error) {
-                console.error('Error showing section:', error);
-            }
-        }
-
-        // Initialize navigation
-        document.addEventListener('DOMContentLoaded', function() {
-            // Nav link click handlers
-            document.querySelectorAll('.nav-link').forEach(link => {
-                addSecureEventListener(link, 'click', function(e) {
-                    e.preventDefault();
-                    const sectionId = this.dataset.section;
-                    if (sectionId) {
-                        showSection(sectionId);
-                    }
-                });
-            });
-
-            // Mobile menu toggle
-            const mobileToggle = document.getElementById('mobileToggle');
-            const navMenu = document.getElementById('navMenu');
-            
-            addSecureEventListener(mobileToggle, 'click', function() {
-                if (navMenu) {
-                    navMenu.classList.toggle('active');
-                }
-            });
-
-            // Scroll to top button
-            const scrollTopBtn = document.getElementById('scrollTop');
-            addSecureEventListener(scrollTopBtn, 'click', function() {
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
-            });
-
-            // Contact form handling
-            const contactForm = document.getElementById('contactForm');
-            addSecureEventListener(contactForm, 'submit', handleContactForm);
-        });
-
-        // Enhanced contact form handling
-        async function handleContactForm(e) {
-            e.preventDefault();
-            
-            const submitBtn = document.getElementById('submitBtn');
-            const btnText = document.getElementById('btnText');
-            const btnLoader = document.getElementById('btnLoader');
-            const successMessage = document.getElementById('successMessage');
-            const formError = document.getElementById('formError');
-            
-            // Get and sanitize form data
-            const formData = {
-                name: sanitizeInput(document.getElementById('name').value),
-                email: sanitizeInput(document.getElementById('email').value),
-                subject: sanitizeInput(document.getElementById('subject').value),
-                message: sanitizeInput(document.getElementById('message').value)
-            };
-
-            // Validate form
-            let isValid = true;
-            const errors = {};
-
-            if (!formData.name || formData.name.length < 2) {
-                errors.name = 'Please enter a valid name (at least 2 characters)';
-                isValid = false;
-            }
-
-            if (!validateEmail(formData.email)) {
-                errors.email = 'Please enter a valid email address';
-                isValid = false;
-            }
-
-            if (!formData.subject || formData.subject.length < 5) {
-                errors.subject = 'Please enter a subject (at least 5 characters)';
-                isValid = false;
-            }
-
-            if (!formData.message || formData.message.length < 10) {
-                errors.message = 'Please enter a message (at least 10 characters)';
-                isValid = false;
-            }
-
-            // Display validation errors
-            Object.keys(errors).forEach(field => {
-                const errorElement = document.getElementById(field + 'Error');
-                if (errorElement) {
-                    errorElement.textContent = errors[field];
-                    errorElement.style.display = 'block';
-                }
-            });
-
-            // Clear previous success/error messages
-            if (successMessage) successMessage.style.display = 'none';
-            if (formError) formError.style.display = 'none';
-
-            if (!isValid) return;
-
-            // Hide validation errors
-            document.querySelectorAll('.form-error').forEach(error => {
-                error.style.display = 'none';
-            });
-
-            // Show loading state
-            if (submitBtn) submitBtn.disabled = true;
-            if (btnText) btnText.classList.add('hidden');
-            if (btnLoader) btnLoader.classList.remove('hidden');
-
-            try {
-                // Create mailto link as fallback
-                const mailtoLink = `mailto:abubakar.siddiq1592@gmail.com?subject=${encodeURIComponent(formData.subject)}&body=${encodeURIComponent(
-                    `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
-                )}`;
-
-                // Simulate form submission delay
-                await new Promise(resolve => setTimeout(resolve, 2000));
-
-                // Open default email client
-                window.location.href = mailtoLink;
-
-                // Show success message
-                if (successMessage) {
-                    successMessage.innerHTML = `
-                        ✅ Your default email client should open now. If it doesn't, please email me directly at 
-                        <a href="mailto:abubakar.siddiq1592@gmail.com" style="color: var(--success-color);">
-                            abubakar.siddiq1592@gmail.com
-                        </a>
-                    `;
-                    successMessage.style.display = 'block';
-                }
-
-                // Reset form
-                document.getElementById('contactForm').reset();
-
-            } catch (error) {
-                console.error('Form submission error:', error);
-                
-                // Show error message with direct email link
-                if (formError) {
-                    formError.innerHTML = `
-                        ❌ Please email me directly at 
-                        <a href="mailto:abubakar.siddiq1592@gmail.com?subject=${encodeURIComponent(formData.subject)}" 
-                           style="color: var(--error-color);">
-                            abubakar.siddiq1592@gmail.com
-                        </a>
-                    `;
-                    formError.style.display = 'block';
-                }
-            } finally {
-                // Reset button state
-                if (submitBtn) submitBtn.disabled = false;
-                if (btnText) btnText.classList.remove('hidden');
-                if (btnLoader) btnLoader.classList.add('hidden');
-            }
-        }
-
-        // Keyboard navigation
-        addSecureEventListener(document, 'keydown', function(e) {
-            if (e.key === 'Escape') {
-                const navMenu = document.getElementById('navMenu');
-                if (navMenu && navMenu.classList.contains('active')) {
-                    navMenu.classList.remove('active');
-                }
-            }
-        });
-
-        // Add smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            addSecureEventListener(anchor, 'click', function(e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
-
-        // Performance optimization: Debounce scroll events
-        function debounce(func, wait) {
-            let timeout;
-            return function executedFunction(...args) {
-                const later = () => {
-                    clearTimeout(timeout);
-                    func(...args);
-                };
-                clearTimeout(timeout);
-                timeout = setTimeout(later, wait);
-            };
-        }
-
-        // Error boundary for global errors
-        window.addEventListener('error', function(e) {
-            console.error('Global error:', e.error);
-            // Don't expose errors to user, just log them
-        });
-
-        // Prevent XSS through event handlers
-        document.addEventListener('DOMContentLoaded', function() {
-            // Remove any potentially malicious inline event handlers
-            document.querySelectorAll('*').forEach(element => {
-                Array.from(element.attributes).forEach(attr => {
-                    if (attr.name.startsWith('on')) {
-                        element.removeAttribute(attr.name);
-                    }
-                });
-            });
-        });
-
-        // Initialize the application
-        showSection('home');
-    </script>
-</body>
-</html></a>
